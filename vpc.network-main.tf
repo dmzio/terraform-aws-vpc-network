@@ -150,7 +150,7 @@ resource aws_nat_gateway this {
 
     allocation_id = element( aws_eip.nat_gw_ip.*.id, count.index )
     subnet_id     = element( aws_subnet.public.*.id, count.index )
-    depends_on    = [ "aws_internet_gateway.this" ]
+    depends_on    = [ aws_internet_gateway.this ]
 
     tags = {
 
@@ -231,7 +231,7 @@ resource aws_eip nat_gw_ip {
     count = var.in_num_private_subnets * ( var.in_create_private_gateway ? 1 : 0 )
 
     vpc        = true
-    depends_on = [ "aws_internet_gateway.this" ]
+    depends_on = [ aws_internet_gateway.this ]
 
     tags = {
 
